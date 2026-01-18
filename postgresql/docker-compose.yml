@@ -1,0 +1,22 @@
+services:
+  postgres:
+    # PostgreSQL 18 数据库镜像版本（Alpine 版本，体积更小）
+    image: postgres:18-alpine
+    # 容器名称
+    container_name: postgres
+    # 重启策略：除非手动停止，否则总是重启
+    restart: unless-stopped
+    # 环境变量配置
+    environment:
+      # PostgreSQL 超级用户名称
+      POSTGRES_USER: postgres
+      # PostgreSQL 超级用户密码
+      POSTGRES_PASSWORD: postgres
+      # 初始创建的数据库名称
+      POSTGRES_DB: mydb
+    # 端口映射：主机端口:容器端口
+    ports:
+      - "5432:5432"
+    # 数据卷挂载：PostgreSQL 18+ 使用 /var/lib/postgresql 作为挂载点
+    volumes:
+      - ./data:/var/lib/postgresql

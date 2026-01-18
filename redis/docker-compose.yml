@@ -1,0 +1,16 @@
+services:
+  redis:
+    # Redis 镜像版本（Alpine 版本，体积更小）
+    image: redis:7-alpine
+    # 容器名称
+    container_name: redis
+    # 重启策略：除非手动停止，否则总是重启
+    restart: unless-stopped
+    # 端口映射：主机端口:容器端口
+    ports:
+      - "6379:6379"
+    # 数据卷挂载：将容器数据目录映射到本地
+    volumes:
+      - ./data:/data
+    # 启动命令：启用 AOF（Append Only File）持久化
+    command: redis-server --appendonly yes
